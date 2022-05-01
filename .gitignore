@@ -1,0 +1,10 @@
+*.iml
+.idea/
+target/
+vendor/
+*.exe
+*.dll
+*.dynlib
+*.so
+*.a
+*.o
