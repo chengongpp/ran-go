@@ -1,8 +1,9 @@
-package mtsvc
+package ran
 
 import (
 	"context"
 	"net"
+	"strconv"
 	"strings"
 )
 
@@ -32,23 +33,29 @@ func NewCore() Core {
 	}
 }
 
-func (c *Core) NewLocalListener(port int, handler func()) {
-	go c.startListener(port)
+func (c *Core) NewLocalListener(port int, handler func(conn net.Conn)) {
+	go func() {
+		err := c.startListener(context.Background(), port)
+		if err != nil {
+
+		}
+	}()
 }
 
 func (c *Core) startListener(ctx context.Context, port int) error {
-	listener, err := net.Listen("tcp", ":"+string(port))
+	panic("not implemented")
+	listener, err := net.Listen("tcp", ":"+strconv.Itoa(port))
 	if err != nil {
 		return err
 	}
-	err = c.dispatch(listener, handler)
+	err = c.dispatch(listener, nil)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Core) dispatch(listener net.Listener, handler func()) error {
+func (c *Core) dispatch(listener net.Listener, handler func(conn net.Conn)) error {
 	for {
 		conn, err := listener.Accept()
 		if err != nil {

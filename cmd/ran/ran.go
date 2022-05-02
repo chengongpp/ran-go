@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"mtfapt/pkg/mtsvc"
 	"os"
+	"ran/pkg/ran"
 )
 
 const (
@@ -45,7 +45,7 @@ func runClient(remoteUrl string, command string, interactiveMode bool) {
 	if command != "" && interactiveMode {
 		_, _ = fmt.Fprintln(os.Stderr, "Will not run in interactive mode with command")
 	}
-	client := mtsvc.NewClient(remoteUrl)
+	client := ran.NewClient(remoteUrl)
 	if command != "" {
 		client.ExecuteMode(command)
 	} else {

@@ -1,11 +1,14 @@
 CC = go build
 CFLAGS =
 
-all: mtsvc
+all: ran
 
-mtsvc:
+ran:
 	mkdir -p target
-	$(CC) $(CFLAGS) -o target/mtsvc cmd/mtsvc/mtsvc.go
+	$(CC) $(CFLAGS) -o target/ran cmd/ran/ran.go
+
+test:
+	python3 test/test_all.py
 
 clean:
 	rm -rf target/

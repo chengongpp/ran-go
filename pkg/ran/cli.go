@@ -1,4 +1,4 @@
-package mtsvc
+package ran
 
 import (
 	"fmt"

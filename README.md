@@ -1,4 +1,4 @@
-# Mesh Tweaked for Advanced Penetration Testing
+# Ran: Another Network
 
 **Cloud native** mesh networking, now introduced to intranet pentests.
 
@@ -30,21 +30,21 @@ Setup mesh network on the entrypoint:
 
 ```shell
 # Exec on 192.168.137.101
-./mtsvc -l "mtstp://0.0.0.0:10080"
+./ran -l "rantp://0.0.0.0:10080"
 ```
 
 Connect an individual endpoint to the mesh network:
 
 ```shell
 # Exec on 192.168.137.102
-./mtsvc -u "mtstp://192.168.137.101:10080"
+./ran -u "rantp://192.168.137.101:10080"
 ```
 
 Or ALTERNATIVELY, connect from entrypoint to that individual endpoint:
 
 ```shell
 # Exec on 192.168.137.102
-./mtsvc -l "mtstp://0.0.0.0:10080"
+./ran -l "rantp://0.0.0.0:10080"
 # Exec on the interactive shell later. druB is node name of `101`.
 addprobe durB 192.168.137.102:10080
 ```
@@ -53,9 +53,9 @@ Access the mesh endpoint, interactively:
 
 ```shell
 # Exec on 192.168.137.1
-./mtsvc -u "mtstp://192.168.137.101:10080" -i
+./ran -u "rantp://192.168.137.101:10080" -i
 # Exec query without being interactive
-./mtsvc -u "mtstp://192.168.137.101:10080" -c "listnodes"
+./ran -u "rantp://192.168.137.101:10080" -c "listnodes"
 ```
 
 Show nodes on the mesh network:
@@ -90,7 +90,7 @@ Use `[fe80::wtf]` if you want to conquer over IPv6.
 
 ## Protocols
 
-By default, MTFAPT use MTSTP as protocol for control plane, and
+By default, ran use ranTP as protocol for control plane, and
 direct L4 routing for data plane.
 
 Alternatively you can use http to wrap up both
@@ -102,7 +102,3 @@ socks5, http/2, https, QUIC,DNS,WS+TLS will be supported in the future.
 
 This framework may be robust enough to serve as a L4 service mesh in the future.
 
-## And another one...
-
-Name it *MtFs Accept Pp Trimmed* to support those who are suffering
-from gender identification disorder on the earth!
