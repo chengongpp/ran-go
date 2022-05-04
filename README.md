@@ -46,7 +46,7 @@ Or ALTERNATIVELY, connect from entrypoint to that individual endpoint:
 # Exec on 192.168.137.102
 ./ran -l "rantp://0.0.0.0:10080"
 # Exec on the interactive shell later. druB is node name of `101`.
-addprobe durB 192.168.137.102:10080
+probenode durB 192.168.137.102:10080
 ```
 
 Access the mesh endpoint, interactively:
@@ -78,8 +78,8 @@ addmapping zero:192.168.137.1:10050 Aagd::10050 --listen
 Upload and exec command on remote node:
 
 ```shell
-# Inspect node
-inspect Aagd
+# get node information
+info Aagd
 # Upload or download files with syncfile
 syncfile /tmp/ma.php Aagd:/tmp/ma.php
 # Will execute with environment loaded non-login shell as "arthur"

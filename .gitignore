@@ -8,3 +8,4 @@ vendor/
 *.so
 *.a
 *.o
+sponsor/

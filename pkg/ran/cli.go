@@ -14,17 +14,6 @@ type Client struct {
 	localAddresses []net.Addr
 }
 
-type PreparedStmt struct {
-	stmt   int
-	tokens []string
-}
-
-const (
-	StmtNope      = 0x0000
-	StmtUnknown   = 0x0001
-	StmtListNodes = 0x0100
-)
-
 func NewClient(remoteUrl string) *Client {
 	addrs, err := probeLocalAddresses()
 	cli := &Client{
@@ -104,20 +93,23 @@ func (c *Client) parseCommand(command string) (PreparedStmt, error) {
 	var stmt int
 	var errStmt error
 	switch strings.ToLower(commands[0]) {
-	case "listnodes":
-		stmt = StmtListNodes
-	case "":
+	case "l", "listnode":
+		stmt = StmtQryNode
+	case "v", "version":
+		stmt = StmtVersion
+	case "sh", "shell":
+		stmt = StmtShell
+	case "scp", "syncfile":
+		stmt = StmtFile
+	case "addm", "addmapping":
+		stmt = StmtAddMapping
+	case "delm", "delmapping":
+		stmt = StmtDelMapping
+	case "lm", "listmappings":
+		stmt = StmtQryMapping
 	default:
 		stmt = StmtUnknown
 	}
-	return PreparedStmt{stmt: stmt}, errStmt
-}
-
-func (c *Client) Execute(stmt PreparedStmt) error {
-	switch stmt.stmt {
-	case StmtNope:
-		return nil
-	default:
-		return fmt.Errorf("unknown statement")
-	}
+	tokens := commands[1:]
+	return PreparedStmt{stmt: stmt, tokens: tokens}, errStmt
 }
